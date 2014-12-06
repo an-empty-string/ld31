@@ -54,8 +54,8 @@ Crafty.c('Player', {
         this.collided = false;
     },
     collisionDetect: function() {
-        this.onHit('Solid', this.halt);
         this.onHit('Button', this.buttonHit, function() { this.collided = false; });
+        this.onHit('Wall', this.halt);
     },
     buttonHit: function(data) {
         if(!this.collided) {
@@ -63,6 +63,7 @@ Crafty.c('Player', {
             data[0].obj.toggle();
             Crafty.trigger('buttonPressed', {button: this});
         }
+        this.halt();
     },
     halt: function() {
         this._speed = 0;
