@@ -46,7 +46,7 @@ Crafty.c('Player', {
         if(!this.collided) {
             this.collided = true;
             data[0].obj.toggle();
-            Crafty.trigger('buttonPressed', {button: this})
+            Crafty.trigger('buttonPressed', {button: this});
         }
         this.halt();
     },
