@@ -1,6 +1,4 @@
-var GAME_HEIGHT = 768;
-var GAME_WIDTH = 768;
 window.onload = function() {
-    Crafty.init(GAME_WIDTH, GAME_HEIGHT);
+    Crafty.init(GameConfig.width * GameConfig.tile_size, GameConfig.height * GameConfig.tile_size);
     Crafty.background('#ccc');
 }
