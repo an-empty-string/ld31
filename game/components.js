@@ -16,3 +16,15 @@ Crafty.c('Actor', {
         this.requires('2D, Canvas, Grid');
     }
 });
+
+Crafty.c('Button', {
+    init: function() {
+        this.requires('Actor, Color');
+        this.attr({enabled: false});
+        this.color('red');
+    },
+    toggle: function() {
+        this.enabled = !this.enabled;
+        this.color(this.enabled? "green": "red");
+    }
+});
