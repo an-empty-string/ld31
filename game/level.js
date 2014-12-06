@@ -25,6 +25,10 @@ function checkGroupsComplete() {
             getGroup(i).forEach(function(x){
                 x.color("yellow");
                 x.attr({locked: true});
+                window.setTimeout(function() {
+                    x.attr({locked: false, enabled: false});
+                    x.color("red");
+                }, 30000);
             });
         }
     }
