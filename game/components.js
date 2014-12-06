@@ -19,12 +19,42 @@ Crafty.c('Actor', {
 
 Crafty.c('Button', {
     init: function() {
-        this.requires('Actor, Color');
+        this.requires('Actor, Color, Solid');
         this.attr({enabled: false});
         this.color('red');
     },
     toggle: function() {
         this.enabled = !this.enabled;
         this.color(this.enabled? "green": "red");
+    }
+});
+
+Crafty.c('Player', {
+    init: function() {
+        this.requires('Actor, Color, Fourway, Collision');
+        this.color('black');
+        this.fourway(5);
+        this.at(10, 10);
+        this.attr({bid: -1});
+        this.collisionDetect();
+        this.collided = false;
+    },
+    collisionDetect: function() {
+        this.onHit('Button', this.buttonHit, function() { this.collided = false; });
+    },
+    buttonHit: function(data) {
+        if(!this.collided) {
+            this.collided = true;
+            data[0].obj.toggle();
+            Crafty.trigger('buttonPressed', {button: this})
+        }
+        this.halt();
+    },
+    halt: function() {
+        this._speed = 0;
+        if(this._movement) {
+            this.x -= (this._movement.x);
+            this.y -= (this._movement.y);
+        }
     }
 });
