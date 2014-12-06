@@ -23,9 +23,16 @@ Crafty.c('Button', {
         this.attr({enabled: false});
         this.color('red');
     },
-    toggle: function() {
+    toggle: function(untoggleDisabled) {
+        if(this.locked) return;
         this.enabled = !this.enabled;
         this.color(this.enabled? "green": "red");
+        if(!untoggleDisabled) {
+            var that = this;
+            window.setTimeout(function() {
+                if(that.enabled) that.toggle(true)
+            }, 5000);
+        }
     }
 });
 
