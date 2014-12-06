@@ -36,6 +36,13 @@ Crafty.c('Button', {
     }
 });
 
+Crafty.c('Wall', {
+    init: function() {
+        this.requires('Actor, Color, Solid');
+        this.color('blue');
+    }
+});
+
 Crafty.c('Player', {
     init: function() {
         this.requires('Actor, Color, Fourway, Collision');
@@ -47,6 +54,7 @@ Crafty.c('Player', {
         this.collided = false;
     },
     collisionDetect: function() {
+        this.onHit('Solid', this.halt);
         this.onHit('Button', this.buttonHit, function() { this.collided = false; });
     },
     buttonHit: function(data) {
@@ -55,7 +63,6 @@ Crafty.c('Player', {
             data[0].obj.toggle();
             Crafty.trigger('buttonPressed', {button: this});
         }
-        this.halt();
     },
     halt: function() {
         this._speed = 0;

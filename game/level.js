@@ -32,6 +32,13 @@ function checkGroupsComplete() {
             });
         }
     }
+    var flag = true;
+    for(x in buttons) {
+        for(y in buttons[x]) {
+            if(!buttons[x][y].locked) flag = false;
+        }
+    }
+    if(flag) alert("YOU'RE WINNER!!!!!1!1!!!!!");
 }
 function go() {
     statusMessage = Crafty.e("2D, Canvas, Text").attr({x: 400, y: 500}).text("rekt");
@@ -42,6 +49,13 @@ function go() {
             var button = Crafty.e('Button');
             buttons[Math.floor(i/4)][Math.floor(j/4)] = button;
             button.at(i, j);
+        }
+    }
+    for(var x = 0; x < GameConfig.width; x++) {
+        for(var y = 0; y < GameConfig.height; y++) {
+            if(x == 0 || x == GameConfig.width -1 || y == 0 || y == GameConfig.height - 1) {
+                Crafty.e('Wall').at(x, y);
+            }
         }
     }
     Crafty.e('Player').at(15, 15);
